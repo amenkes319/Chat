@@ -50,7 +50,7 @@ public class SendThread implements Runnable
 	{
 		try
 		{
-			output.write(message);
+			output.write(Client.INSTACE.getName() + "," + message);
 		} 
 		catch (IOException e)
 		{

@@ -1,12 +1,29 @@
 package chat.threads;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import chat.client.Client;
+
 public class ReceiveThread implements Runnable
 {
 	private Thread thread;
 	
+	private BufferedReader input;
+	
 	public ReceiveThread()
 	{
 		this.thread = new Thread(this);
+		
+		try
+		{
+			input = new BufferedReader(new InputStreamReader(Client.INSTACE.getSocket().getInputStream()));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -14,7 +31,14 @@ public class ReceiveThread implements Runnable
 	{
 		while (true)
 		{
-
+			try
+			{
+				System.out.println(input.readLine());
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	
