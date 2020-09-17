@@ -24,18 +24,11 @@ public class SendThread implements Runnable
 		
 		try
 		{
-			Client i = Client.INSTANCE;
-			Socket s = i.getSocket();
-			OutputStream o = s.getOutputStream();
-			this.output = new BufferedWriter(new OutputStreamWriter(o));
+			this.output = new BufferedWriter(new OutputStreamWriter(Client.INSTANCE.getSocket().getOutputStream()));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		catch (NullPointerException e)
-		{
-			e.
 		}
 	}
 	
