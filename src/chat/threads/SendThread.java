@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.Socket;
 
 import chat.client.Client;
 
@@ -22,11 +24,18 @@ public class SendThread implements Runnable
 		
 		try
 		{
-			this.output = new BufferedWriter(new OutputStreamWriter(Client.INSTACE.getSocket().getOutputStream()));
+			Client i = Client.INSTANCE;
+			Socket s = i.getSocket();
+			OutputStream o = s.getOutputStream();
+			this.output = new BufferedWriter(new OutputStreamWriter(o));
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+		catch (NullPointerException e)
+		{
+			e.
 		}
 	}
 	
@@ -50,7 +59,7 @@ public class SendThread implements Runnable
 	{
 		try
 		{
-			output.write(Client.INSTACE.getName() + "," + message);
+			output.write(Client.INSTANCE.getName() + "," + message);
 		} 
 		catch (IOException e)
 		{

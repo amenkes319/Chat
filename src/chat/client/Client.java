@@ -10,7 +10,7 @@ import chat.threads.SendThread;
 
 public class Client
 {
-	public static final Client INSTACE = new Client();
+	public static final Client INSTANCE = new Client();
 	
 	private Socket socket;
 	
@@ -27,7 +27,7 @@ public class Client
 			int port = getPort();
 			
 			this.socket = new Socket(ip, port);
-			
+
 			this.sendThread = new SendThread();
 			this.receiveThread = new ReceiveThread();
 			

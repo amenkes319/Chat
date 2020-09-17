@@ -18,7 +18,7 @@ public class ReceiveThread implements Runnable
 		
 		try
 		{
-			input = new BufferedReader(new InputStreamReader(Client.INSTACE.getSocket().getInputStream()));
+			input = new BufferedReader(new InputStreamReader(Client.INSTANCE.getSocket().getInputStream()));
 		}
 		catch (IOException e)
 		{
