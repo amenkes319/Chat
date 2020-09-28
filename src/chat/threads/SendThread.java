@@ -17,14 +17,14 @@ public class SendThread implements Runnable
 	private BufferedReader input; 
 	private BufferedWriter output;
 	
-	public SendThread()
+	public SendThread(Client instance)
 	{
 		this.thread = new Thread(this);
 		this.input = new BufferedReader(new InputStreamReader(System.in));
 		
 		try
 		{
-			this.output = new BufferedWriter(new OutputStreamWriter(Client.INSTANCE.getSocket().getOutputStream()));
+			this.output = new BufferedWriter(new OutputStreamWriter(Client.getSocket().getOutputStream()));
 		}
 		catch (IOException e)
 		{
@@ -52,7 +52,7 @@ public class SendThread implements Runnable
 	{
 		try
 		{
-			output.write(Client.INSTANCE.getName() + "," + message);
+			output.write(Client.getName() + "," + message);
 		} 
 		catch (IOException e)
 		{

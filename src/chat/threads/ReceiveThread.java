@@ -12,13 +12,13 @@ public class ReceiveThread implements Runnable
 	
 	private BufferedReader input;
 	
-	public ReceiveThread()
+	public ReceiveThread(Client instance)
 	{
 		this.thread = new Thread(this);
 		
 		try
 		{
-			input = new BufferedReader(new InputStreamReader(Client.INSTANCE.getSocket().getInputStream()));
+			input = new BufferedReader(new InputStreamReader(Client.getSocket().getInputStream()));
 		}
 		catch (IOException e)
 		{

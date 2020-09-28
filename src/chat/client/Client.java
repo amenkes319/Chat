@@ -10,14 +10,13 @@ import chat.threads.SendThread;
 
 public class Client
 {
-	public static final Client INSTANCE = new Client();
-	
-	private Socket socket;
+	private final Client INSTANCE = this;
+	private static Socket socket;
 	
 	private SendThread sendThread;
 	private ReceiveThread receiveThread;
 	
-	private String name;
+	private static String name;
 	
 	public Client()
 	{
@@ -26,10 +25,10 @@ public class Client
 			String ip = getIP();
 			int port = getPort();
 			
-			this.socket = new Socket(ip, port);
+			socket = new Socket(ip, port);
 
-			this.sendThread = new SendThread();
-			this.receiveThread = new ReceiveThread();
+			this.sendThread = new SendThread(INSTANCE);
+			this.receiveThread = new ReceiveThread(INSTANCE);
 			
 			this.sendThread.start();
 			this.receiveThread.start();
@@ -44,21 +43,21 @@ public class Client
 		}
 	}
 	
-	private String getIP() throws IOException
+	private static String getIP() throws IOException
 	{
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		
 		do
 		{
 			System.out.print("Enter your name (no commas): ");
-			this.name = input.readLine();
-		} while (this.name.contains(","));
+			name = input.readLine();
+		} while (name.contains(","));
 		
 		System.out.print("Enter the IP to connect to: ");
 		return input.readLine();
 	}
 	
-	private int getPort() throws IOException
+	private static int getPort() throws IOException
 	{
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		boolean bPort = true;
@@ -79,18 +78,18 @@ public class Client
 		return -1;
 	}
 
-	public Socket getSocket()
+	public static Socket getSocket()
 	{
 		return socket;
 	}
 
-	public String getName()
+	public static String getName()
 	{
 		return name;
 	}
 	
 	public static void main(String[] args)
 	{
-
+		new Client();
 	}
 }
